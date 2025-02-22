@@ -4,20 +4,17 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - "5001:5000"
     depends_on:
       - db
-
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
   db:
     image: postgres:13
+    restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: user_db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
-
-volumes:
-  postgres_data:

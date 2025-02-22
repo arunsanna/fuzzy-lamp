@@ -1,23 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Admin</h1>
-    <table border="1">
+  <div class="container mt-5">
+    <h3 class="text-center mb-4">All Signups</h3>
+    <table class="table table-striped table-bordered shadow">
+      <thead class="thead-dark">
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
         </tr>
-        {% for user in users %}
+      </thead>
+      <tbody>
+        {% for signup in signups %}
         <tr>
-            <td>{{ user[0] }}</td>
-            <td>{{ user[1] }}</td>
-            <td>{{ user[2] }}</td>
+          <td>{{ signup.id }}</td>
+          <td>{{ signup.first_name }}</td>
+          <td>{{ signup.last_name }}</td>
+          <td>{{ signup.email }}</td>
         </tr>
         {% endfor %}
+      </tbody>
     </table>
+  </div>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
