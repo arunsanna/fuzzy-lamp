@@ -10,5 +10,8 @@
   "settings": {
     "python.pythonPath": "/usr/local/bin/python"
   },
-  "postCreateCommand": "pip install -r requirements.txt && pytest"
+  "postCreateCommand": "pip install -r requirements.txt && pytest --cov=app && coverage report",
+  "tasks": {
+    "build": "pip install -r requirements.txt"
+  }
 }
