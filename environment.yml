@@ -1,0 +1,13 @@
+name: fuzzy-lamp-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.0
+  - flask=2.0.3
+  - flask-sqlalchemy=2.5.1
+  - psycopg2-binary=2.9.3
+  - pytest=8.2.2  # Version compatible with Python 3.12
+  - pytest-cov=3.0.0   # Add this line for code coverage
+  - werkzeug=2.0.3
+  - "sqlalchemy<2"  # Force SQLAlchemy to a 1.x version
+  - pip
