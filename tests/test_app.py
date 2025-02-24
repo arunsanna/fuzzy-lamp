@@ -92,3 +92,50 @@ def test_admin_login_logout(client):
     # Test logout
     response = client.get('/logout', follow_redirects=True)
     assert b"Admin Login" in response.data
+
+def test_invalid_signup_missing_fields(client):
+    """Test that submitting a signup with missing fields shows an error message."""
+    response = client.post(
+        '/',
+        data={'first_name': 'John', 'last_name': ''},
+        follow_redirects=True
+    )
+    assert response.status_code == 200
+    assert b"Sign Up" in response.data  # No success message
+
+def test_access_admin_without_login(client):
+    """Test that accessing the admin page without login redirects to login page."""
+    response = client.get('/admin', follow_redirects=True)
+    assert response.status_code == 200
+    assert b"Admin Login" in response.data
+
+def test_access_logout_without_login(client):
+    """Test that accessing the logout route without login redirects to login page."""
+    response = client.get('/logout', follow_redirects=True)
+    assert response.status_code == 200
+    assert b"Admin Login" in response.data
+
+def test_invalid_email_format_signup(client):
+    """Test that submitting a signup with an invalid email format shows an error message."""
+    response = client.post(
+        '/',
+        data={'first_name': 'John', 'last_name': 'Doe', 'email': 'invalid-email'},
+        follow_redirects=True
+    )
+    assert response.status_code == 200
+    assert b"Sign Up" in response.data  # No success message
+
+def test_sqlalchemy_integrity_error_handling(client):
+    """Test that SQLAlchemy IntegrityError is handled during signup."""
+    with app.app_context():
+        signup = Signup(first_name='John', last_name='Doe', email='john@example.com')
+        db.session.add(signup)
+        db.session.commit()
+
+    response = client.post(
+        '/',
+        data={'first_name': 'Jane', 'last_name': 'Doe', 'email': 'john@example.com'},
+        follow_redirects=True
+    )
+    assert response.status_code == 200
+    assert b"Error: This email is already registered." in response.data
