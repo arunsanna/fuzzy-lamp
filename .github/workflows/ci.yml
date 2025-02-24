@@ -50,6 +50,11 @@ jobs:
         source venv/bin/activate
         pytest --cov=app --cov-report=term-missing
 
+    - name: Print code coverage report
+      run: |
+        source venv/bin/activate
+        pytest --cov=app --cov-report=term-missing
+
     - name: Build Docker image
       run: |
         docker build -t fuzzy-lamp:latest .

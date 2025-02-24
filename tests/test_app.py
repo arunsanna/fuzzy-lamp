@@ -139,3 +139,8 @@ def test_sqlalchemy_integrity_error_handling(client):
     )
     assert response.status_code == 200
     assert b"Error: This email is already registered." in response.data
+
+def test_before_first_request(client):
+    """Test that the database tables are created before the first request."""
+    with app.app_context():
+        assert db.engine.table_names() == ['signup']
