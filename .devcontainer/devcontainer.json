@@ -28,6 +28,6 @@
       }
     }
   },
-  "postCreateCommand": "pip install -r requirements.txt && pytest --cov=app && coverage report",
+  "postCreateCommand": "pip install -r requirements.txt",
   "remoteUser": "root"
 }
